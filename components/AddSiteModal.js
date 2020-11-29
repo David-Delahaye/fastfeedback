@@ -24,13 +24,14 @@ import fetcher from '@/utils/fetcher';
 const AddSiteModal = ({ children }) => {
   const initialRef = useRef();
   const toast = useToast();
-  const auth = useAuth();
+  const { user } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { register, handleSubmit } = useForm();
+  //const { data } = useSWR(user ? ['/api/sites', user.token] : null, fetcher);
 
   const onCreateSite = ({ name, url }) => {
     const newSite = {
-      authorId: auth.user.uid,
+      authorId: user.uid,
       createdAt: new Date().toISOString(),
       name,
       url
@@ -44,8 +45,9 @@ const AddSiteModal = ({ children }) => {
       duration: 5000,
       isClosable: true
     });
+
     mutate(
-      '/api/sites',
+      ['/api/sites', user.token],
       async (data) => {
         console.log({ sites: [...data.sites, newSite] });
         return { sites: [...data.sites, newSite] };

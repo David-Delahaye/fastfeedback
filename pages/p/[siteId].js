@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
-
 import { Box, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
 
 import { useAuth } from '@/lib/auth';
 import { getAllFeedback, getAllSites } from '@/lib/db-admin';
 import Feedback from '@/components/Feedback';
 import { createFeedback } from '@/lib/db';
+import DashboardShell from '@/components/DashboardShell';
 
 export default function SiteFeedback({ initialFeedback }) {
   const auth = useAuth();
@@ -30,47 +30,48 @@ export default function SiteFeedback({ initialFeedback }) {
     createFeedback(newFeedBack);
   };
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      width="full"
-      maxWidth="700px"
-      margin="0 auto"
-      p={4}>
-      <Box as="form" onSubmit={onSubmit}>
-        <FormControl py={8}>
-          <FormLabel htmlFor="comment">Comment</FormLabel>
-          <Input ref={inputEl} id="comment" />
-          <Button type="submit" fontWeight="medium" mt={2}>
-            Add Comment
-          </Button>
-        </FormControl>
-      </Box>
+    <DashboardShell>
+      <Box
+        display="flex"
+        flexDirection="column"
+        width="full"
+        maxWidth="700px"
+        margin="0 auto"
+        p={4}>
+        <Box as="form" onSubmit={onSubmit}>
+          <FormControl py={8}>
+            <FormLabel htmlFor="comment">Comment</FormLabel>
+            <Input ref={inputEl} id="comment" />
+            <Button type="submit" fontWeight="medium" mt={2}>
+              Add Comment
+            </Button>
+          </FormControl>
+        </Box>
 
-      {allFeedback.map((feedback) => (
-        <Feedback key={feedback.id} {...feedback} />
-      ))}
-    </Box>
+        {allFeedback.map((feedback) => (
+          <Feedback key={feedback.id} {...feedback} />
+        ))}
+      </Box>
+    </DashboardShell>
   );
 }
 
 export async function getStaticPaths() {
   const { sites } = await getAllSites();
-
-  const paths = sites.map((site) => ({
+  const paths = await sites.map((site) => ({
     params: {
       siteId: site.id.toString()
     }
   }));
-  
+
   return {
     paths,
     fallback: false
   };
 }
 
-export async function getStaticProps(context) {
-  const siteId = context.params.siteId;
+export async function getStaticProps({ params }) {
+  const siteId = params.siteId;
   const { feedback } = await getAllFeedback(siteId);
 
   return {

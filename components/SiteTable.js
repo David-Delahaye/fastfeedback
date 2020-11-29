@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import NextLink from 'next/link';
 
 const SiteTable = ({ sites }) => {
+  console.log(sites);
   return (
     <Table>
       <thead>
