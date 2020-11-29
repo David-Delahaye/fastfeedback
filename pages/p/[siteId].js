@@ -30,29 +30,27 @@ export default function SiteFeedback({ initialFeedback }) {
     createFeedback(newFeedBack);
   };
   return (
-    <DashboardShell>
-      <Box
-        display="flex"
-        flexDirection="column"
-        width="full"
-        maxWidth="700px"
-        margin="0 auto"
-        p={4}>
-        <Box as="form" onSubmit={onSubmit}>
-          <FormControl py={8}>
-            <FormLabel htmlFor="comment">Comment</FormLabel>
-            <Input ref={inputEl} id="comment" />
-            <Button type="submit" fontWeight="medium" mt={2}>
-              Add Comment
-            </Button>
-          </FormControl>
-        </Box>
-
-        {allFeedback.map((feedback) => (
-          <Feedback key={feedback.id} {...feedback} />
-        ))}
+    <Box
+      display="flex"
+      flexDirection="column"
+      width="full"
+      maxWidth="700px"
+      margin="0 auto"
+      p={4}>
+      <Box as="form" onSubmit={onSubmit}>
+        <FormControl py={8}>
+          <FormLabel htmlFor="comment">Comment</FormLabel>
+          <Input ref={inputEl} id="comment" />
+          <Button type="submit" fontWeight="medium" mt={2}>
+            Add Comment
+          </Button>
+        </FormControl>
       </Box>
-    </DashboardShell>
+
+      {allFeedback.map((feedback) => (
+        <Feedback key={feedback.id} {...feedback} />
+      ))}
+    </Box>
   );
 }
 

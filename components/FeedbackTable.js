@@ -1,30 +1,38 @@
 import React from 'react';
-import { Box, Link, Skeleton } from '@chakra-ui/react';
+import { Box, IconButton, Link, Skeleton, Switch } from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons';
 import { Table, Tr, Th, Td } from './Table';
-import { parseISO } from 'date-fns';
-import { format } from 'date-fns';
+import RemoveButton from '@/components/RemoveButton';
 
-const SiteTable = ({ sites }) => {
+const FeedbackTable = ({ feedback }) => {
   return (
     <Table>
       <thead>
         <Tr>
           <Th>Name</Th>
-          <Th>Site Link</Th>
-          <Th>Feedback Link</Th>
-          <Th>Date Added</Th>
+          <Th>Feedback</Th>
+          <Th>Route</Th>
+          <Th>Visible</Th>
           <Th>{''}</Th>
         </Tr>
       </thead>
       <tbody>
-        {sites.map((site) => (
-          <Box as="tr" key={site.url}>
-            <Td fontWeight="medium">{site.name}</Td>
-            <Td>{site.url}</Td>
+        {feedback.map((feedback) => (
+          <Box as="tr" key={feedback.id}>
+            <Td fontWeight="medium">{feedback.author}</Td>
+            <Td>{feedback.text}</Td>
             <Td>
-              <Link>View Feedback</Link>
+              <Link>{'/'}</Link>
             </Td>
-            <Td>{format(parseISO(site.createdAt), 'PPp')}</Td>
+            <Td>
+              <Switch
+                defaultIsChecked={feedback.status === 'active'}
+                colorScheme="green"
+              />
+            </Td>
+            <Td>
+              <RemoveButton feedbackId={feedback.id} />
+            </Td>
           </Box>
         ))}
       </tbody>
@@ -32,4 +40,4 @@ const SiteTable = ({ sites }) => {
   );
 };
 
-export default SiteTable;
+export default FeedbackTable;
