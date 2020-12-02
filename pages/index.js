@@ -23,7 +23,6 @@ export async function getStaticProps() {
 }
 
 export default function Home({ initialFeedback }) {
-  console.log(initialFeedback);
   const auth = useAuth();
   const [allFeedback, setAllFeedback] = useState(initialFeedback);
   return (

@@ -47,9 +47,10 @@ export default function SiteFeedback({ initialFeedback }) {
         </FormControl>
       </Box>
 
-      {allFeedback.map((feedback) => (
-        <Feedback key={feedback.id} {...feedback} />
-      ))}
+      {allFeedback &&
+        allFeedback.map((feedback) => (
+          <Feedback key={feedback.id} {...feedback} />
+        ))}
     </Box>
   );
 }
@@ -64,7 +65,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false
+    fallback: true
   };
 }
 
