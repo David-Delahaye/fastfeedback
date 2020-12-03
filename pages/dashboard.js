@@ -26,7 +26,7 @@ export default function Dashboard() {
   if (data.sites.length) {
     return (
       <DashboardShell>
-        <SiteTableHeader />
+        <SiteTableHeader isPaidAccount={isPaidAccount} />
         <SiteTable sites={data.sites} />
       </DashboardShell>
     );

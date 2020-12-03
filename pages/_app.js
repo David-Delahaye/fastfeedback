@@ -4,6 +4,8 @@ import { AuthProvider } from '../lib/auth';
 import Head from 'next/head';
 
 import customTheme from '@/styles/themes';
+import SEO from '../next-seo.config';
+import { DefaultSeo } from 'next-seo';
 
 const GlobalStyle = ({ children }) => {
   return (
@@ -33,6 +35,7 @@ function MyApp({ Component, pageProps }) {
       <ChakraProvider theme={customTheme}>
         <AuthProvider>
           <GlobalStyle />
+          <DefaultSeo {...SEO} />
           <Component {...pageProps} />
         </AuthProvider>
       </ChakraProvider>
