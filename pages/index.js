@@ -23,7 +23,6 @@ export async function getStaticProps() {
 }
 
 export default function Home({ initialFeedback }) {
-  console.log(initialFeedback);
   const auth = useAuth();
   const [allFeedback, setAllFeedback] = useState(initialFeedback);
   return (
@@ -36,8 +35,6 @@ export default function Home({ initialFeedback }) {
         justify="center"
         h="60vh">
         <Head>
-          <title>Fast Feedback</title>
-          <link rel="icon" href="/favicon.ico" />
           <script
             dangerouslySetInnerHTML={{
               __html: `
@@ -48,6 +45,7 @@ export default function Home({ initialFeedback }) {
             }}
           />
         </Head>
+
         <Logo boxSize="64px" />
 
         {auth.user ? (

@@ -12,7 +12,7 @@ import { format, parseISO } from 'date-fns';
 
 const Feedback = ({ author, text, createdAt, id }) => {
   return (
-    <Box borderRadius={4} maxWidth="700px" w="full" py={2} mx="auto">
+    <Box borderRadius={4} maxWidth="700px" w="full" py={2} px={4} mx="auto">
       <Flex direction="column">
         <Heading size="sm" as="h3" mb={0} color="green.900" fontWeight="medium">
           {author}

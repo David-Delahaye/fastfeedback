@@ -49,7 +49,7 @@ const AddSiteModal = ({ children }) => {
 
     mutate(
       ['/api/sites', user.token],
-      async (data) => ({ sites: [...data.sites, { id, ...newSite }] }),
+      async (data) => ({ sites: [{ id, ...newSite }, ...data.sites] }),
       false
     );
 
@@ -62,7 +62,12 @@ const AddSiteModal = ({ children }) => {
         onClick={onOpen}
         fontWeight="medium"
         maxWidth="fit-content"
-        colorScheme="green">
+        variant="outline"
+        backgroundColor="gray.900"
+        color="white"
+        size="md"
+        _hover={{ bg: 'gray.800' }}
+        _active={{ bg: 'gray.800', transform: 'scale(0.95)' }}>
         {children}
       </Button>
 
