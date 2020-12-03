@@ -10,25 +10,26 @@ import {
   Heading,
   Text,
   Box,
-  Button
+  Button,
+  Badge
 } from '@chakra-ui/react';
 
 export default function Account() {
-  const { user } = useAuth();
+  const { user, signout } = useAuth();
   return (
     <DashboardShell>
       <>
-        <Flex flexDirection="column" maxWidth="600px" m="auto">
+        <Flex flexDirection="column" maxWidth="800px" m="auto">
           <Flex flexDirection="column" alignItems="center">
             <Avatar
-              src={user.photoUrl}
-              alt={user.name}
+              src={user?.photoUrl}
+              alt={user?.name}
               boxSize="100px"
               mb={4}
               mt={4}
             />
-            <Heading mb={2}>{user.name}</Heading>
-            <Text mb={16}>{user.email}</Text>
+            <Heading mb={2}>{user?.name}</Heading>
+            <Text mb={16}>{user?.email}</Text>
 
             <Flex
               flexDirection="column"
@@ -41,11 +42,24 @@ export default function Account() {
                 backgroundColor="gray.50"
                 display="flex"
                 justifyContent="space-between"
-                p={8}>
-                <Text>Settings</Text>
-                <Text fontWeight="bold">FREE</Text>
+                p={6}>
+                <Badge
+                  textTransform="uppercase"
+                  variant="ghost"
+                  textTransform="uppercase"
+                  fontSize="xs"
+                  color="gray.500"
+                  fontWeight="medium">
+                  Settings
+                </Badge>
+                <Badge
+                  fontWeight="bold"
+                  textTransform="uppercase"
+                  variant="ghost">
+                  {user?.stripeRole}
+                </Badge>
               </Box>
-              <Flex flexDirection="column" p={8}>
+              <Flex flexDirection="column" p={6}>
                 <Flex mb="16px">
                   <Box width="50%">
                     <Text fontWeight="bold">Feedback</Text>
@@ -68,7 +82,11 @@ export default function Account() {
                   words doing word Lorem
                 </Text>
                 <Box ml="auto" mt="auto">
-                  <Button mr={8} variant="ghost" variantColor="blackAlpha">
+                  <Button
+                    mr={8}
+                    variant="ghost"
+                    variantColor="blackAlpha"
+                    onClick={signout}>
                     Log Out
                   </Button>
                   <Button
@@ -88,20 +106,6 @@ export default function Account() {
             </Flex>
           </Flex>
         </Flex>
-
-        {/* <Button
-          onClick={(e) => {
-            createCheckoutSession(user.uid);
-          }}
-          mt={8}
-          variant="outline"
-          backgroundColor="gray.900"
-          color="white"
-          size="md"
-          _hover={{ bg: 'gray.800' }}
-          _active={{ bg: 'gray.800', transform: 'scale(0.95)' }}>
-          Upgrade to Starter
-        </Button> */}
       </>
     </DashboardShell>
   );

@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react';
 import AddSiteModal from './AddSiteModal';
 
-export default function SiteTableHeader() {
+export default function SiteTableHeader({ isPaidAccount }) {
   return (
     <Breadcrumb>
       <BreadcrumbItem>
@@ -15,7 +15,7 @@ export default function SiteTableHeader() {
       </BreadcrumbItem>
       <Flex justify="space-between">
         <Heading mb={8}>My Sites</Heading>
-        <AddSiteModal>+ Add Site</AddSiteModal>
+        {isPaidAccount && <AddSiteModal>+ Add Site</AddSiteModal>}
       </Flex>
     </Breadcrumb>
   );
