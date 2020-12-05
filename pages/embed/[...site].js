@@ -29,7 +29,7 @@ export async function getStaticPaths() {
   const { sites } = await getAllSites();
   const paths = await sites.map((site) => ({
     params: {
-      site: [site.id.toString(), '']
+      site: [site.id.toString()]
     }
   }));
 
@@ -45,8 +45,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      initialFeedback: feedback,
-      slug: siteId + route
+      initialFeedback: feedback
     },
     revalidate: 1
   };
