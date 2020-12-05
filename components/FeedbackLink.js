@@ -2,14 +2,14 @@ import { ArrowRightIcon } from '@chakra-ui/icons';
 import { Box, Flex, Link, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-export default function FeedbackLink({ siteId }) {
+export default function FeedbackLink({ slug }) {
   return (
-    <Box maxW="700px" mx="auto" w="full" my={6} padding={4}>
+    <Box mx="auto" w="full">
       <Flex justify="space-between" align="center">
-        <NextLink href={`/p/${siteId}`}>
+        <NextLink href={`/sites/${slug}`}>
           <Link>
             <Flex fontWeight="bold" align="center">
-              Leave a comment <ArrowRightIcon ml={2} my="auto" />
+              Leave a comment <ArrowRightIcon my="auto" />
             </Flex>
           </Link>
         </NextLink>

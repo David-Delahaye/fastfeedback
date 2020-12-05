@@ -6,7 +6,6 @@ import { format } from 'date-fns';
 import NextLink from 'next/link';
 
 const SiteTable = ({ sites }) => {
-  console.log(sites);
   return (
     <Table>
       <thead>
@@ -21,10 +20,15 @@ const SiteTable = ({ sites }) => {
       <tbody>
         {sites.map((site) => (
           <Box as="tr" key={site.url}>
-            <Td fontWeight="medium">{site.name}</Td>
+            <Td fontWeight="medium">
+              <NextLink href={`/sites/${site.id}`}>
+                <Link>{site.name}</Link>
+              </NextLink>
+            </Td>
+
             <Td>{site.url}</Td>
             <Td>
-              <NextLink href={`/p/${site.id}`}>
+              <NextLink href={`/feedback/${site.id}`}>
                 <Link>View Feedback</Link>
               </NextLink>
             </Td>

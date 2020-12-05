@@ -8,27 +8,34 @@ import fetcher from '@/utils/fetcher';
 import SiteTable from '@/components/SiteTable';
 import FeedbackTable from '@/components/FeedbackTable';
 import FeedbackTableHeader from '@/components/FeedbackTableHeader';
+import FeedbackEmptyState from '@/components/FeedbackEmptyState';
+import FeedbackTableSkeleton from '@/components/FeedbackTableSkeleton';
+import { useRouter } from 'next/router';
 
-export default function MyFeedback() {
+export default function SiteFeedback() {
   const { user } = useAuth();
-  const { data } = useSWR(user ? ['/api/feedback', user.token] : null, fetcher);
+  const { query } = useRouter();
+  const { data } = useSWR(
+    user ? [`/api/feedback/${query.siteId}`, user.token] : null,
+    fetcher
+  );
 
   if (!data) {
     return (
       <DashboardShell>
         <FeedbackTableHeader />
-        <SiteTableSkeleton />
+        <FeedbackTableSkeleton />
       </DashboardShell>
     );
   }
 
   return (
     <DashboardShell>
-      <FeedbackTableHeader />
+      <FeedbackTableHeader siteName={data.site.name} />
       {data.feedback && data.feedback.length !== 0 ? (
         <FeedbackTable feedback={data.feedback} />
       ) : (
-        <EmptyState />
+        <FeedbackEmptyState />
       )}
     </DashboardShell>
   );

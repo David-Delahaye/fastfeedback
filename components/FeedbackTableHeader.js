@@ -5,16 +5,32 @@ import {
   BreadcrumbItem,
   BreadcrumbLink
 } from '@chakra-ui/react';
-import AddSiteModal from './AddSiteModal';
+import NextLink from 'next/link';
 
-export default function FeedbackTableHeader() {
+export default function FeedbackTableHeader({ siteName, routeName }) {
+  let title = 'Feedback';
+  if (siteName) title = siteName;
+  if (routeName) title = routeName;
+
   return (
     <Breadcrumb>
       <BreadcrumbItem>
-        <BreadcrumbLink>Feedback</BreadcrumbLink>
+        <NextLink href="/feedback">
+          <BreadcrumbLink>Feedback</BreadcrumbLink>
+        </NextLink>
       </BreadcrumbItem>
+      {siteName && (
+        <BreadcrumbItem>
+          <BreadcrumbLink>{siteName}</BreadcrumbLink>
+        </BreadcrumbItem>
+      )}
+      {routeName && (
+        <BreadcrumbItem>
+          <BreadcrumbLink>{routeName}</BreadcrumbLink>
+        </BreadcrumbItem>
+      )}
       <Flex justify="space-between">
-        <Heading mb={8}>My Feedback</Heading>
+        <Heading mb={8}>{title}</Heading>
       </Flex>
     </Breadcrumb>
   );

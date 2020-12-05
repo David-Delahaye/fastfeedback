@@ -39,7 +39,7 @@ export default function Home({ initialFeedback }) {
             dangerouslySetInnerHTML={{
               __html: `
           if (document.cookie && document.cookie.includes('fast-feedback-auth')) {
-            window.location.href = "/dashboard"
+            window.location.href = "/sites"
           }
         `
             }}
@@ -50,7 +50,7 @@ export default function Home({ initialFeedback }) {
 
         {auth.user ? (
           <>
-            <NextLink href="/dashboard">
+            <NextLink href="/sites">
               <Button
                 mt={2}
                 variant="outline"
@@ -96,11 +96,6 @@ export default function Home({ initialFeedback }) {
           </>
         )}
       </Flex>
-      <FeedbackLink siteId={siteId} />
-      {allFeedback &&
-        allFeedback.map((feedback) => (
-          <Feedback key={feedback.id} {...feedback} />
-        ))}
     </>
   );
 }

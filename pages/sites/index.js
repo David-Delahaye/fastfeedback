@@ -8,8 +8,9 @@ import fetcher from '@/utils/fetcher';
 import SiteTable from '@/components/SiteTable';
 import SiteTableHeader from '@/components/SiteTableHeader';
 import UpgradeEmptyState from '@/components/UpgradeEmptyState';
+import Page from '@/components/Page';
 
-export default function Dashboard() {
+function Dashboard() {
   const { user } = useAuth();
   const { data } = useSWR(user ? ['/api/sites', user.token] : null, fetcher);
   const isPaidAccount = user?.stripeRole !== 'free';
@@ -37,5 +38,13 @@ export default function Dashboard() {
       <SiteTableHeader isPaidAccount={isPaidAccount} />
       {isPaidAccount ? <EmptyState /> : <UpgradeEmptyState />}
     </DashboardShell>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Page>
+      <Dashboard />
+    </Page>
   );
 }

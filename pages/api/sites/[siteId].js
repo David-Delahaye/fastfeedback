@@ -1,11 +1,13 @@
-import { getAllFeedback, getSite } from '@/lib/db-admin';
+import { getSite } from '@/lib/db-admin';
 
 export default async function handler(req, res) {
+  console.log(siteId);
   const siteId = req.query.siteId;
-  const { feedback, error } = await getAllFeedback(siteId);
   const { site } = await getSite(siteId);
   if (error) {
     res.status(500).json({ error });
   }
-  res.status(200).json({ feedback, site });
+
+  console.log(site);
+  res.status(200).json({ site });
 }
