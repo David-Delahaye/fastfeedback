@@ -15,7 +15,6 @@ import { useRouter } from 'next/router';
 export default function SiteFeedback() {
   const { user } = useAuth();
   const { query } = useRouter();
-  console.log(query);
   const { data } = useSWR(
     user ? [`/api/feedback/${query.siteId}`, user.token] : null,
     fetcher

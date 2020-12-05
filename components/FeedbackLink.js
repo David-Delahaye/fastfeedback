@@ -6,7 +6,7 @@ export default function FeedbackLink({ siteId }) {
   return (
     <Box maxW="700px" mx="auto" w="full" my={6} padding={4}>
       <Flex justify="space-between" align="center">
-        <NextLink href={`/p/${siteId}`}>
+        <NextLink href={`/sites/${siteId}`}>
           <Link>
             <Flex fontWeight="bold" align="center">
               Leave a comment <ArrowRightIcon ml={2} my="auto" />

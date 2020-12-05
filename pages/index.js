@@ -96,11 +96,6 @@ export default function Home({ initialFeedback }) {
           </>
         )}
       </Flex>
-      <FeedbackLink siteId={siteId} />
-      {allFeedback &&
-        allFeedback.map((feedback) => (
-          <Feedback key={feedback.id} {...feedback} />
-        ))}
     </>
   );
 }

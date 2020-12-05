@@ -5,7 +5,6 @@ const Page = ({ children }) => {
   if (typeof window !== 'undefined') path = window.location.pathname;
   const name = path.charAt(1).toUpperCase() + path.slice(2);
   const title = `Fast Feedback - ${name}`;
-  console.log(title);
   const url = `https://https://fastfeedback-blush.vercel.app${path}`;
   return (
     <>

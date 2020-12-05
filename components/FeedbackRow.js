@@ -6,7 +6,7 @@ import { updateFeedback } from '@/lib/db';
 import { useAuth } from '@/lib/auth';
 import { mutate } from 'swr';
 
-const FeedbackRow = ({ id, author, text, route, status }) => {
+const FeedbackRow = ({ id, author, text, route, status, siteId }) => {
   const auth = useAuth();
   const [checked, setChecked] = useState(status === 'active');
   const toggleFeedback = (e) => {
@@ -19,7 +19,7 @@ const FeedbackRow = ({ id, author, text, route, status }) => {
       <Td fontWeight="medium">{author}</Td>
       <Td>{text}</Td>
       <Td>
-        <Link>{'/'}</Link>
+        <Link>{`/sites/${siteId}${route ? '/' + route : ''}`}</Link>
       </Td>
       <Td>
         <Switch

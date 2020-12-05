@@ -7,7 +7,11 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-export default function FeedbackTableHeader({ siteName }) {
+export default function FeedbackTableHeader({ siteName, routeName }) {
+  let title = 'Feedback';
+  if (siteName) title = siteName;
+  if (routeName) title = routeName;
+
   return (
     <Breadcrumb>
       <BreadcrumbItem>
@@ -15,15 +19,18 @@ export default function FeedbackTableHeader({ siteName }) {
           <BreadcrumbLink>Feedback</BreadcrumbLink>
         </NextLink>
       </BreadcrumbItem>
-      {siteName ? (
+      {siteName && (
         <BreadcrumbItem>
           <BreadcrumbLink>{siteName}</BreadcrumbLink>
         </BreadcrumbItem>
-      ) : (
-        ''
+      )}
+      {routeName && (
+        <BreadcrumbItem>
+          <BreadcrumbLink>{routeName}</BreadcrumbLink>
+        </BreadcrumbItem>
       )}
       <Flex justify="space-between">
-        <Heading mb={8}>{siteName || 'Feedback'}</Heading>
+        <Heading mb={8}>{title}</Heading>
       </Flex>
     </Breadcrumb>
   );
