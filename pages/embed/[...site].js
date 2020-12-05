@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Box, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
 
 import { useAuth } from '@/lib/auth';
@@ -9,14 +9,22 @@ import { createFeedback } from '@/lib/db';
 import DashboardShell from '@/components/DashboardShell';
 import FeedbackLink from '@/components/FeedbackLink';
 
-export default function SiteFeedback({ initialFeedback, siteId }) {
+export default function EmbedFeedback({ initialFeedback, slug }) {
   const router = useRouter();
   const [allFeedback, setAllFeedback] = useState(initialFeedback);
 
+  useEffect(() => {
+    setAllFeedback(initialFeedback);
+  }, [initialFeedback]);
+
   return (
     <>
-      <FeedbackLink siteId={siteId} />
-      {allFeedback.length === 0 ? <h2>No Feedback yet, be the first!</h2> : ''}
+      <FeedbackLink slug={slug} />
+      {allFeedback && allFeedback.length === 0 ? (
+        <h2>No Feedback yet, be the first!</h2>
+      ) : (
+        ''
+      )}
       {allFeedback &&
         allFeedback.map((feedback) => (
           <Feedback key={feedback.id} {...feedback} />
@@ -42,10 +50,13 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const [siteId, route] = params.site;
   const { feedback } = await getAllFeedback(siteId, route);
+  let slug = siteId;
+  if (route) slug += '/' + route;
 
   return {
     props: {
-      initialFeedback: feedback
+      initialFeedback: feedback,
+      slug
     },
     revalidate: 1
   };

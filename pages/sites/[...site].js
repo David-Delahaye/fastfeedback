@@ -1,6 +1,13 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { Box, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Textarea
+} from '@chakra-ui/react';
 
 import { useAuth } from '@/lib/auth';
 import { getAllFeedback, getAllSites, getSite } from '@/lib/db-admin';
@@ -44,18 +51,28 @@ export default function SiteFeedback({ initialFeedback, site }) {
   return (
     <DashboardShell>
       <SiteTableHeader site={site} routeName={route} />
-      <Box
-        display="flex"
-        flexDirection="column"
-        width="full"
-        maxWidth="700px"
-        margin="0 auto"
-        p={4}>
-        <Box as="form" onSubmit={onSubmit}>
-          <FormControl py={8}>
-            <FormLabel htmlFor="comment">Comment</FormLabel>
-            <Input ref={inputEl} id="comment" />
-            <Button type="submit" fontWeight="medium" mt={2}>
+      <Box display="flex" flexDirection="column" width="full" margin="0 auto">
+        <Box as="form" onSubmit={onSubmit} mb={4}>
+          <FormControl display="flex" flexDir="column">
+            <Textarea
+              ref={inputEl}
+              id="comment"
+              background="white"
+              maxW={600}
+              height={100}
+              placeholder="Leave a comment..."
+            />
+            <Button
+              type="submit"
+              fontWeight="medium"
+              mt={2}
+              maxWidth="fit-content"
+              variant="outline"
+              backgroundColor="gray.900"
+              color="white"
+              size="md"
+              _hover={{ bg: 'gray.800' }}
+              _active={{ bg: 'gray.800', transform: 'scale(0.95)' }}>
               Add Comment
             </Button>
           </FormControl>

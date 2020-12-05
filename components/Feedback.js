@@ -17,13 +17,13 @@ const Feedback = ({ author, text, createdAt, id }) => {
         <Heading size="sm" as="h3" fontWeight="medium">
           {author}
         </Heading>
-        <Text size="sm" as="h3" fontWeight="medium">
+        <Text color="gray.500" fontSize="xs">
+          {format(parseISO(createdAt), 'PPp')}
+        </Text>
+        <Text size="sm" as="h3" fontWeight="medium" mb={4}>
           {text}
         </Text>
       </Flex>
-      <Text color="gray.500" mb={4} fontSize="xs">
-        {format(parseISO(createdAt), 'PPp')}
-      </Text>
       <Divider />
     </Box>
   );
