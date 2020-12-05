@@ -38,7 +38,7 @@ const DashboardShell = ({ children }) => {
               <NextLink href="/feedback">
                 <Link>Feedback</Link>
               </NextLink>
-              <NextLink href="/dashboard">
+              <NextLink href="/sites">
                 <Link>Sites</Link>
               </NextLink>
             </Stack>

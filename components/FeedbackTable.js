@@ -3,6 +3,7 @@ import { Box, IconButton, Link, Skeleton, Switch } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { Table, Tr, Th, Td } from './Table';
 import RemoveButton from '@/components/RemoveButton';
+import FeedbackRow from './FeedbackRow';
 
 const FeedbackTable = ({ feedback }) => {
   return (
@@ -18,22 +19,7 @@ const FeedbackTable = ({ feedback }) => {
       </thead>
       <tbody>
         {feedback.map((feedback) => (
-          <Box as="tr" key={feedback.id}>
-            <Td fontWeight="medium">{feedback.author}</Td>
-            <Td>{feedback.text}</Td>
-            <Td>
-              <Link>{'/'}</Link>
-            </Td>
-            <Td>
-              <Switch
-                defaultIsChecked={feedback.status === 'active'}
-                colorScheme="green"
-              />
-            </Td>
-            <Td>
-              <RemoveButton feedbackId={feedback.id} />
-            </Td>
-          </Box>
+          <FeedbackRow key={feedback.id} {...feedback} />
         ))}
       </tbody>
     </Table>
