@@ -37,7 +37,7 @@ export default function SiteTableHeader({ isPaidAccount, site, routeName }) {
         <Heading mb={8}>{title}</Heading>
         {isPaidAccount && <AddSiteModal>+ Add Site</AddSiteModal>}
         {true && (
-          <EditSiteModal>
+          <EditSiteModal site={site}>
             <SettingsIcon mr={2} />
             Edit Site
           </EditSiteModal>
