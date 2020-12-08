@@ -80,7 +80,11 @@ export default function SiteFeedback({ initialFeedback, site }) {
 
         {allFeedback &&
           allFeedback.map((feedback) => (
-            <Feedback key={feedback.id} {...feedback} />
+            <Feedback
+              key={feedback.id}
+              {...feedback}
+              settings={site?.settings}
+            />
           ))}
       </Box>
     </DashboardShell>

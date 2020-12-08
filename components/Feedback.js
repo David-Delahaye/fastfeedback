@@ -9,12 +9,17 @@ import {
   Code
 } from '@chakra-ui/react';
 import { format, parseISO } from 'date-fns';
+import { Github, Google } from '@/styles/icons';
 
-const Feedback = ({ author, text, createdAt, id }) => {
+const Feedback = ({ author, text, createdAt, id, settings, provider }) => {
+  let providerIcon = '';
+  if (provider === 'github.com') providerIcon = <Github />;
+  if (provider === 'google.com') providerIcon = <Google />;
   return (
     <Box my={4}>
       <Flex direction="column">
         <Heading size="sm" as="h3" fontWeight="medium">
+          {settings?.icons ? providerIcon : 'no icons'}
           {author}
         </Heading>
         <Text color="gray.500" fontSize="xs">
