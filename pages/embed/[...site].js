@@ -3,13 +3,13 @@ import { useEffect, useRef, useState } from 'react';
 import { Box, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
 
 import { useAuth } from '@/lib/auth';
-import { getAllFeedback, getAllSites } from '@/lib/db-admin';
+import { getAllFeedback, getAllSites, getSite } from '@/lib/db-admin';
 import Feedback from '@/components/Feedback';
 import { createFeedback } from '@/lib/db';
 import DashboardShell from '@/components/DashboardShell';
 import FeedbackLink from '@/components/FeedbackLink';
 
-export default function EmbedFeedback({ initialFeedback, slug }) {
+export default function EmbedFeedback({ initialFeedback, slug, site }) {
   const router = useRouter();
   const [allFeedback, setAllFeedback] = useState(initialFeedback);
 
@@ -27,7 +27,7 @@ export default function EmbedFeedback({ initialFeedback, slug }) {
       )}
       {allFeedback &&
         allFeedback.map((feedback) => (
-          <Feedback key={feedback.id} {...feedback} />
+          <Feedback key={feedback.id} {...feedback} settings={site?.settings} />
         ))}
     </>
   );
@@ -50,13 +50,15 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const [siteId, route] = params.site;
   const { feedback } = await getAllFeedback(siteId, route);
+  const { site } = await getSite(siteId);
   let slug = siteId;
   if (route) slug += '/' + route;
 
   return {
     props: {
       initialFeedback: feedback,
-      slug
+      slug,
+      site
     },
     revalidate: 1
   };

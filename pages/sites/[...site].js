@@ -38,7 +38,7 @@ export default function SiteFeedback({ initialFeedback, site }) {
       author: auth.user.name,
       authorId: auth.user.uid,
       siteId,
-      route: route || '/',
+      route: route || '',
       text: inputEl.current.value,
       createdAt: new Date().toISOString(),
       provider: auth.user.provider,
@@ -80,7 +80,11 @@ export default function SiteFeedback({ initialFeedback, site }) {
 
         {allFeedback &&
           allFeedback.map((feedback) => (
-            <Feedback key={feedback.id} {...feedback} />
+            <Feedback
+              key={feedback.id}
+              {...feedback}
+              settings={site?.settings}
+            />
           ))}
       </Box>
     </DashboardShell>
