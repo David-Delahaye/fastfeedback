@@ -13,17 +13,17 @@ import { Github, Google } from '@/styles/icons';
 
 const Feedback = ({ author, text, createdAt, id, settings, provider }) => {
   let providerIcon = '';
-  if (provider === 'github.com') providerIcon = <Github />;
-  if (provider === 'google.com') providerIcon = <Google />;
+  if (provider === 'github.com') providerIcon = <Github ml={2} />;
+  if (provider === 'google.com') providerIcon = <Google ml={2} />;
   return (
     <Box my={4}>
       <Flex direction="column">
         <Heading size="sm" as="h3" fontWeight="medium">
-          {settings?.icons ? providerIcon : 'no icons'}
           {author}
+          {settings?.icons ? providerIcon : ''}
         </Heading>
         <Text color="gray.500" fontSize="xs">
-          {format(parseISO(createdAt), 'PPp')}
+          {settings?.timestamp && format(parseISO(createdAt), 'PPp')}
         </Text>
         <Text size="sm" as="h3" fontWeight="medium" mb={4}>
           {text}
