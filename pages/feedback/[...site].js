@@ -14,13 +14,21 @@ import { useRouter } from 'next/router';
 
 export default function SiteFeedback() {
   const { user } = useAuth();
-  const { query } = useRouter();
-  const { data } = useSWR(
-    user ? [`/api/feedback/${query.siteId}`, user.token] : null,
-    fetcher
-  );
+  const router = useRouter();
+  const siteAndRoute = router.query?.site;
+  const siteId = siteAndRoute ? siteAndRoute[0] : '';
+  const route = siteAndRoute ? siteAndRoute[1] : '';
+  const feedbackApi = route
+    ? `/api/feedback/${siteId}/${route}`
+    : `/api/feedback/${siteId}`;
 
-  if (!data) {
+  const { data: siteData } = useSWR(`/api/sites/${siteId}`, fetcher);
+  const { data: feedbackData } = useSWR(feedbackApi, fetcher);
+
+  const site = siteData?.site;
+  const feedback = feedbackData?.feedback;
+
+  if (!feedback) {
     return (
       <DashboardShell>
         <FeedbackTableHeader />
@@ -31,9 +39,9 @@ export default function SiteFeedback() {
 
   return (
     <DashboardShell>
-      <FeedbackTableHeader siteName={data.site.name} />
-      {data.feedback && data.feedback.length !== 0 ? (
-        <FeedbackTable feedback={data.feedback} />
+      <FeedbackTableHeader siteName={site?.name} />
+      {feedback && feedback.length !== 0 ? (
+        <FeedbackTable feedback={feedback} />
       ) : (
         <FeedbackEmptyState />
       )}

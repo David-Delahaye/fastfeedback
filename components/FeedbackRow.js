@@ -19,7 +19,7 @@ const FeedbackRow = ({ id, author, text, route, status, siteId }) => {
       <Td fontWeight="medium">{author}</Td>
       <Td>{text}</Td>
       <Td>
-        <Link>{`/sites/${siteId}${route ? '/' + route : ''}`}</Link>
+        <Link>{`${route ? '/' + route : ''}`}</Link>
       </Td>
       <Td>
         <Switch

@@ -36,7 +36,7 @@ export default function SiteTableHeader({ isPaidAccount, site, routeName }) {
       <Flex justify="space-between">
         <Heading mb={8}>{title}</Heading>
         {isPaidAccount && <AddSiteModal>+ Add Site</AddSiteModal>}
-        {true && (
+        {site?.name && (
           <EditSiteModal site={site}>
             <SettingsIcon mr={2} />
             Edit Site

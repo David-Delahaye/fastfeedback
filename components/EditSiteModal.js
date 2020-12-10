@@ -68,7 +68,7 @@ const EditSiteModal = ({ site, children }) => {
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent as="form" onSubmit={handleSubmit(onEditSite)}>
-          <ModalHeader>Add Site</ModalHeader>
+          <ModalHeader>Edit Site</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl display="flex">
