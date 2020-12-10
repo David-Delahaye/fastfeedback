@@ -15,39 +15,49 @@ import Feedback from '@/components/Feedback';
 import { createFeedback } from '@/lib/db';
 import DashboardShell from '@/components/DashboardShell';
 import SiteTableHeader from '@/components/SiteTableHeader';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import fetcher from '@/utils/fetcher';
 
-export default function SiteFeedback({ initialFeedback, site }) {
-  const auth = useAuth();
+export default function SiteFeedback() {
+  const { user } = useAuth();
   const inputEl = useRef(null);
   const router = useRouter();
-  const [allFeedback, setAllFeedback] = useState(initialFeedback);
   const siteAndRoute = router.query?.site;
   const siteId = siteAndRoute ? siteAndRoute[0] : '';
   const route = siteAndRoute ? siteAndRoute[1] : '';
-  //const [siteID, route] = router.query.site;
+  const feedbackApi = route
+    ? `/api/feedback/${siteId}/${route}`
+    : `/api/feedback/${siteId}`;
 
-  useEffect(() => {
-    setAllFeedback(initialFeedback);
-  }, [initialFeedback]);
+  const { data: siteData } = useSWR(`/api/sites/${siteId}`, fetcher);
+  const { data: feedbackData } = useSWR(feedbackApi, fetcher);
+
+  const site = siteData?.site;
+  const feedback = feedbackData?.feedback;
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const newFeedback = {
-      author: auth.user.name,
-      authorId: auth.user.uid,
+      author: user.name,
+      authorId: user.uid,
       siteId,
       route: route || '',
       text: inputEl.current.value,
       createdAt: new Date().toISOString(),
-      provider: auth.user.provider,
+      provider: user.provider,
       status: 'pending'
     };
-
-    setAllFeedback([newFeedback, ...allFeedback]);
     createFeedback(newFeedback);
+    mutate(
+      feedbackApi,
+      async (data) => ({
+        feedback: [newFeedback, ...data.feedback]
+      }),
+      false
+    );
+    e.target.comment.value = '';
   };
+
   return (
     <DashboardShell>
       <SiteTableHeader site={site} routeName={route} />
@@ -78,8 +88,8 @@ export default function SiteFeedback({ initialFeedback, site }) {
           </FormControl>
         </Box>
 
-        {allFeedback &&
-          allFeedback.map((feedback) => (
+        {feedback &&
+          feedback.map((feedback) => (
             <Feedback
               key={feedback.id}
               {...feedback}
