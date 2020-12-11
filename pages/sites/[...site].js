@@ -34,6 +34,7 @@ export default function SiteFeedback() {
 
   const site = siteData?.site;
   const feedback = feedbackData?.feedback;
+  const isOwner = site?.authorId === user?.uid;
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -41,6 +42,7 @@ export default function SiteFeedback() {
       author: user.name,
       authorId: user.uid,
       siteId,
+      siteName: site.name,
       route: route || '',
       text: inputEl.current.value,
       createdAt: new Date().toISOString(),
@@ -60,7 +62,7 @@ export default function SiteFeedback() {
 
   return (
     <DashboardShell>
-      <SiteTableHeader site={site} routeName={route} />
+      <SiteTableHeader site={site} routeName={route} isOwner={isOwner} />
       <Box display="flex" flexDirection="column" width="full" margin="0 auto">
         <Box as="form" onSubmit={onSubmit} mb={4}>
           <FormControl display="flex" flexDir="column">

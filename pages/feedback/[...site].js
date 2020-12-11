@@ -39,7 +39,7 @@ export default function SiteFeedback() {
 
   return (
     <DashboardShell>
-      <FeedbackTableHeader siteName={site?.name} />
+      <FeedbackTableHeader site={site} routeName={route} />
       {feedback && feedback.length !== 0 ? (
         <FeedbackTable feedback={feedback} />
       ) : (

@@ -10,7 +10,7 @@ const FeedbackTable = ({ feedback }) => {
     <Table>
       <thead>
         <Tr>
-          <Th>Name</Th>
+          <Th>Author</Th>
           <Th>Feedback</Th>
           <Th>Route</Th>
           <Th>Visible</Th>

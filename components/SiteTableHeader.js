@@ -10,39 +10,48 @@ import NextLink from 'next/link';
 import AddSiteModal from './AddSiteModal';
 import EditSiteModal from './EditSiteModal';
 
-export default function SiteTableHeader({ isPaidAccount, site, routeName }) {
+export default function SiteTableHeader({
+  isPaidAccount,
+  isOwner,
+  site,
+  routeName
+}) {
   let title = 'Sites';
   if (site) title = site.name;
   if (routeName) title = routeName;
-  return (
-    <Breadcrumb>
-      <BreadcrumbItem>
-        <NextLink href="/sites">
-          <BreadcrumbLink>Sites</BreadcrumbLink>
-        </NextLink>
-      </BreadcrumbItem>
-      {site && (
+
+  if (isOwner) {
+    return (
+      <Breadcrumb>
         <BreadcrumbItem>
-          <NextLink href={`/sites/${site.id}`}>
-            <BreadcrumbLink>{site.name}</BreadcrumbLink>
+          <NextLink href="/sites">
+            <BreadcrumbLink>Sites</BreadcrumbLink>
           </NextLink>
         </BreadcrumbItem>
-      )}
-      {routeName && (
-        <BreadcrumbItem>
-          <BreadcrumbLink>{routeName}</BreadcrumbLink>
-        </BreadcrumbItem>
-      )}
-      <Flex justify="space-between">
-        <Heading mb={8}>{title}</Heading>
-        {isPaidAccount && <AddSiteModal>+ Add Site</AddSiteModal>}
-        {site?.name && (
-          <EditSiteModal site={site}>
-            <SettingsIcon mr={2} />
-            Edit Site
-          </EditSiteModal>
+        {site && (
+          <BreadcrumbItem>
+            <NextLink href={`/sites/${site.id}`}>
+              <BreadcrumbLink>{site.name}</BreadcrumbLink>
+            </NextLink>
+          </BreadcrumbItem>
         )}
-      </Flex>
-    </Breadcrumb>
-  );
+        {routeName && (
+          <BreadcrumbItem>
+            <BreadcrumbLink>{routeName}</BreadcrumbLink>
+          </BreadcrumbItem>
+        )}
+        <Flex justify="space-between">
+          <Heading mb={8}>{title}</Heading>
+          {isPaidAccount && <AddSiteModal>+ Add Site</AddSiteModal>}
+          {site?.name && (
+            <EditSiteModal site={site}>
+              <SettingsIcon mr={2} />
+              Edit Site
+            </EditSiteModal>
+          )}
+        </Flex>
+      </Breadcrumb>
+    );
+  }
+  return '';
 }
