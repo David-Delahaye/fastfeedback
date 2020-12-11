@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
-import { Box, Link, Switch } from '@chakra-ui/react';
+import { Box, Flex, Link, Switch } from '@chakra-ui/react';
+import NextLink from 'next/link';
 import RemoveButton from '@/components/RemoveButton';
 import { Td } from './Table';
 import { updateFeedback } from '@/lib/db';
 import { useAuth } from '@/lib/auth';
 import { mutate } from 'swr';
+import { Github, Google } from '@/styles/icons';
 
-const FeedbackRow = ({ id, author, text, route, status, siteId }) => {
+const FeedbackRow = ({
+  id,
+  author,
+  siteName,
+  text,
+  route,
+  status,
+  siteId,
+  provider
+}) => {
   const auth = useAuth();
   const [checked, setChecked] = useState(status === 'active');
   const toggleFeedback = (e) => {
@@ -16,10 +27,15 @@ const FeedbackRow = ({ id, author, text, route, status, siteId }) => {
   };
   return (
     <Box as="tr" key={id}>
-      <Td fontWeight="medium">{author}</Td>
+      <Td fontWeight="medium">
+        {provider === 'github.com' ? <Github mr={2} /> : <Google mr={2} />}
+        {author}
+      </Td>
       <Td>{text}</Td>
       <Td>
-        <Link>{`/sites/${siteId}${route ? '/' + route : ''}`}</Link>
+        <NextLink href={'/feedback/' + siteId + (route ? '/' + route : '')}>
+          <Link>{`${route ? '/' + route : '/'}`}</Link>
+        </NextLink>
       </Td>
       <Td>
         <Switch

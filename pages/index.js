@@ -96,6 +96,13 @@ export default function Home({ initialFeedback }) {
           </>
         )}
       </Flex>
+      <Box p={8} overflow="hidden">
+        <iframe
+          src="https://fastfeedback-blush.vercel.app/embed/Rs1vXIdrAwMjcr7BIzYS"
+          width="100%"
+          height="2000px"
+        />
+      </Box>
     </>
   );
 }

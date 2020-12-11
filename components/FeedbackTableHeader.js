@@ -7,9 +7,9 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-export default function FeedbackTableHeader({ siteName, routeName }) {
+export default function FeedbackTableHeader({ site, routeName }) {
   let title = 'Feedback';
-  if (siteName) title = siteName;
+  if (site) title = site.name;
   if (routeName) title = routeName;
 
   return (
@@ -19,9 +19,11 @@ export default function FeedbackTableHeader({ siteName, routeName }) {
           <BreadcrumbLink>Feedback</BreadcrumbLink>
         </NextLink>
       </BreadcrumbItem>
-      {siteName && (
+      {site && (
         <BreadcrumbItem>
-          <BreadcrumbLink>{siteName}</BreadcrumbLink>
+          <NextLink href={'/feedback/' + site.id}>
+            <BreadcrumbLink>{site.name}</BreadcrumbLink>
+          </NextLink>
         </BreadcrumbItem>
       )}
       {routeName && (

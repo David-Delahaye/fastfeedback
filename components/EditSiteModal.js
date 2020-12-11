@@ -24,7 +24,6 @@ import fetcher from '@/utils/fetcher';
 import { useRouter } from 'next/router';
 
 const EditSiteModal = ({ site, children }) => {
-  const settings = site?.settings;
   const initialRef = useRef();
   const toast = useToast();
   const { user } = useAuth();
@@ -32,24 +31,11 @@ const EditSiteModal = ({ site, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { register, handleSubmit } = useForm();
   //const { data } = useSWR(user ? ['/api/sites', user.token] : null, fetcher);
+  const settings = site?.settings;
 
-  const onEditSite = (props) => {
+  const onEditSite = async (props) => {
     const settings = { settings: props };
-    updateSite(site.id, settings);
-
-    // mutate(
-    //   ['/api/sites', user.token],
-    //   async (data) => ({ sites: [{ id, ...newSite }, ...data.sites] }),
-    //   false
-    // );
-    // const newSite = {
-    //   authorId: user.uid,
-    //   createdAt: new Date().toISOString(),
-    //   name,
-    //   url
-    // };
-
-    // const { id } = createSite(newSite);
+    await updateSite(site.id, settings);
 
     toast({
       title: 'Success!',
@@ -58,6 +44,8 @@ const EditSiteModal = ({ site, children }) => {
       duration: 5000,
       isClosable: true
     });
+
+    mutate([`/api/sites/${site.id}`, user.token], false);
 
     onClose();
   };
@@ -80,7 +68,7 @@ const EditSiteModal = ({ site, children }) => {
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent as="form" onSubmit={handleSubmit(onEditSite)}>
-          <ModalHeader>Add Site</ModalHeader>
+          <ModalHeader>Edit Site</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl display="flex">

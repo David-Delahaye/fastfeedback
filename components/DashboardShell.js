@@ -19,7 +19,7 @@ const DashboardShell = ({ children }) => {
 
   return (
     <>
-      <Box backgroundColor="gray.100" h="100vh">
+      <Box backgroundColor="gray.100" minH="100vh">
         <Flex backgroundColor="#ffffff" w="full" alignItems="center">
           <Flex
             justifyContent="space-between"
@@ -46,7 +46,7 @@ const DashboardShell = ({ children }) => {
             <Stack isInline alignItems="center">
               {user && (
                 <>
-                  <NextLink href="account">
+                  <NextLink href="/account">
                     <Link>
                       <Flex align="center">
                         <Text mr={2}>{user.name}</Text>
