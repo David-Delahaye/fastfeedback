@@ -4,6 +4,7 @@ import { Table, Tr, Th, Td } from './Table';
 import { parseISO } from 'date-fns';
 import { format } from 'date-fns';
 import NextLink from 'next/link';
+import DeleteSiteModal from './DeleteSiteModal';
 
 const SiteTable = ({ sites }) => {
   return (
@@ -33,6 +34,7 @@ const SiteTable = ({ sites }) => {
               </NextLink>
             </Td>
             <Td>{format(parseISO(site.createdAt), 'PPp')}</Td>
+            <DeleteSiteModal siteId={site.id}/>
           </Box>
         ))}
       </tbody>
