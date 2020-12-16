@@ -10,6 +10,7 @@ import {
   IconButton,
   Button
 } from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons'
 
 import { deleteSite } from '@/lib/db';
 import { useAuth } from '@/lib/auth';
@@ -37,10 +38,10 @@ const DeleteSiteModal = ({ siteId }) => {
   return (
     <>
       <IconButton
+      icon={<DeleteIcon />}
         variant="ghost"
         onClick={() => setIsOpen(true)}
-      >Delete
-          </IconButton>
+      />
       <AlertDialog
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}

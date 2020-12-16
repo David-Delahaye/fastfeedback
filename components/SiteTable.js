@@ -34,7 +34,9 @@ const SiteTable = ({ sites }) => {
               </NextLink>
             </Td>
             <Td>{format(parseISO(site.createdAt), 'PPp')}</Td>
+            <Td>
             <DeleteSiteModal siteId={site.id}/>
+            </Td>
           </Box>
         ))}
       </tbody>
