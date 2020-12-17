@@ -34,7 +34,7 @@ const FeedbackRow = ({
       <Td>{text}</Td>
       <Td>
         <NextLink href={'/feedback/' + siteId + (route ? '/' + route : '')}>
-          <Link>{`${route ? '/' + route : '/'}`}</Link>
+          <Link>{`${siteName}${route ? '/' + route : '/'}`}</Link>
         </NextLink>
       </Td>
       <Td>
