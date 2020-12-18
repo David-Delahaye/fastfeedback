@@ -1,4 +1,4 @@
-import { SettingsIcon } from '@chakra-ui/icons';
+import { SettingsIcon, EditIcon } from '@chakra-ui/icons';
 import {
   Heading,
   Flex,
@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import AddSiteModal from './AddSiteModal';
+import CodeSiteModal from './CodeSiteModal';
 import EditSiteModal from './EditSiteModal';
 
 export default function SiteTableHeader({
@@ -42,13 +43,16 @@ export default function SiteTableHeader({
         )}
         <Flex justify="space-between">
           <Heading mb={8}>{title}</Heading>
+          <div>
           {isPaidAccount && <AddSiteModal>+ Add Site</AddSiteModal>}
+          <CodeSiteModal mr={2} site={site}><EditIcon mr={2}/> View Code</CodeSiteModal>
           {site?.name && (
             <EditSiteModal site={site}>
               <SettingsIcon mr={2} />
               Edit Site
             </EditSiteModal>
           )}
+          </div>
         </Flex>
       </Breadcrumb>
     );
