@@ -45,7 +45,7 @@ export default function SiteTableHeader({
           <Heading mb={8}>{title}</Heading>
           <div>
           {isPaidAccount && <AddSiteModal>+ Add Site</AddSiteModal>}
-          <CodeSiteModal mr={2} site={site}><EditIcon mr={2}/> View Code</CodeSiteModal>
+          <CodeSiteModal mr={2} site={site} route={routeName}><EditIcon mr={2}/> View Code</CodeSiteModal>
           {site?.name && (
             <EditSiteModal site={site}>
               <SettingsIcon mr={2} />
