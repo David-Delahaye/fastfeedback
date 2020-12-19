@@ -14,7 +14,7 @@ import { EditIcon } from '@chakra-ui/icons'
 import { useAuth } from '@/lib/auth';
 import { PresenceContext } from 'framer-motion';
 
-const CodeSiteModal = ({ site, children }) => {
+const CodeSiteModal = ({ site, children, route }) => {
   const [isOpen, setIsOpen] = useState();
   const cancelRef = useRef();
   const auth = useAuth();
@@ -49,8 +49,9 @@ const CodeSiteModal = ({ site, children }) => {
           <AlertDialogBody>
             <Code overflowX='scroll' maxW='100%'>
 <pre>
-{`<iframe
-src="https://fastfeedback-blush.vercel.app/embed/${site?.id}"
+{`
+<iframe
+src="https://fastfeedback-blush.vercel.app/embed/${site?.id}${route !== undefined ? '/'+route : ''}"
 width="100%"
 height="2000px"
 />
