@@ -8,7 +8,10 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   Button,
-  Code
+  Code,
+  Text,
+  Input,
+  Flex
 } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons'
 import { useAuth } from '@/lib/auth';
@@ -18,6 +21,8 @@ const CodeSiteModal = ({ site, children, route }) => {
   const [isOpen, setIsOpen] = useState();
   const cancelRef = useRef();
   const auth = useAuth();
+  const [siteInput, setSiteInput] = useState(site?.id);
+  const [routeInput, setRouteInput] = useState(route !== undefined ? route : '')
 
   const onClose = () => setIsOpen(false);
 
@@ -47,11 +52,27 @@ const CodeSiteModal = ({ site, children, route }) => {
             Copy Iframe Snippet
           </AlertDialogHeader>
           <AlertDialogBody>
+              <Text>
+              Copy the below code Including the siteID, you may choose to add a route name if you wish to have seperate feedback for each page
+              </Text>
+              <Flex alignItems='center' mt={2}>
+              <Text whiteSpace='nowrap'>
+                Site ID
+                </Text>
+                <Input value={siteInput} ml={2} onChange={(event) => setSiteInput(event.target.value)}/>
+                </Flex>
+                <Flex alignItems='center' mb={2}>
+                <Text>
+                Route (Optional)
+                </Text>
+                <Input value={routeInput} ml={2} onChange={(event) => setRouteInput(event.target.value)} />
+                </Flex>
+              
             <Code overflowX='scroll' maxW='100%'>
 <pre>
 {`
 <iframe
-src="https://fastfeedback-blush.vercel.app/embed/${site?.id}${route !== undefined ? '/'+route : ''}"
+src="https://fastfeedback-blush.vercel.app/embed/${siteInput}${routeInput !== '' ? '/' : ''}${routeInput}"
 width="100%"
 height="2000px"
 />
