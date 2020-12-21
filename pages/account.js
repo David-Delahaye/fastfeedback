@@ -64,22 +64,22 @@ export default function Account() {
                   <Box width="50%">
                     <Text fontWeight="bold">Feedback</Text>
                     <Text fontWeight="bold" fontSize="2xl">
-                      107
+                      107/∞
                     </Text>
-                    <Text color="blackAlpha.500">10,000 limit</Text>
+                    <Text color="blackAlpha.500">{user?.stripeRole === 'premium' ? 'unlimited feedback' : '1000 feedback limit'}</Text>
                   </Box>
                   <Box width="50%">
                     <Text fontWeight="bold">Sites</Text>
                     <Text fontWeight="bold" fontSize="2xl">
-                      5
+                      1/∞
                     </Text>
-                    <Text color="blackAlpha.500">Starter</Text>
+                    <Text color="blackAlpha.500">{user?.stripeRole === 'premium' ? 'unlimited sites' : '1 site limit'}</Text>
                   </Box>
                 </Flex>
                 <Text mb={5}>
-                  Lorem ipsum dolor amet doing words doing word Lorem ipsum
-                  dolor amet doing words doing word Lorem ipsum dolor amet doing
-                  words doing word Lorem
+                Fast Feedback uses Stripe to update, change, or cancel your
+            subscription. You can also update card information and billing
+            addresses through the secure portal.
                 </Text>
                 <Box ml="auto" mt="auto">
                   <Button
