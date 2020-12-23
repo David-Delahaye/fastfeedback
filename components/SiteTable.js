@@ -35,7 +35,7 @@ const SiteTable = ({ sites }) => {
             </Td>
             <Td>{format(parseISO(site.createdAt), 'PPp')}</Td>
             <Td>
-            <DeleteSiteModal siteId={site.id}/>
+            <DeleteSiteModal siteRef={site}/>
             </Td>
           </Box>
         ))}

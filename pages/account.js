@@ -1,5 +1,7 @@
 import DashboardShell from '@/components/DashboardShell';
 import { useAuth } from '@/lib/auth';
+import useSWR from 'swr';
+import fetcher from '@/utils/fetcher';
 import { createBillingPortal, createCheckoutSession } from '@/lib/db';
 import {
   ThemeProvider,
@@ -16,6 +18,9 @@ import {
 
 export default function Account() {
   const { user, signout } = useAuth();
+  const details = useSWR(user ? ['/api/user', user.token] : null, fetcher);
+  console.log(details?.data?.userDetails._fieldsProto.sitesCount.integerValue)
+  const sitesCount = details?.data?.userDetails._fieldsProto.sitesCount.integerValue;
   return (
     <DashboardShell>
       <>
@@ -71,7 +76,7 @@ export default function Account() {
                   <Box width="50%">
                     <Text fontWeight="bold">Sites</Text>
                     <Text fontWeight="bold" fontSize="2xl">
-                      1/∞
+                      {sitesCount}/∞
                     </Text>
                     <Text color="blackAlpha.500">{user?.stripeRole === 'premium' ? 'unlimited sites' : '1 site limit'}</Text>
                   </Box>
