@@ -15,19 +15,19 @@ import { DeleteIcon } from '@chakra-ui/icons'
 import { deleteSite } from '@/lib/db';
 import { useAuth } from '@/lib/auth';
 
-const DeleteSiteModal = ({ siteId }) => {
+const DeleteSiteModal = ({ siteRef }) => {
   const [isOpen, setIsOpen] = useState();
   const cancelRef = useRef();
   const auth = useAuth();
 
   const onClose = () => setIsOpen(false);
   const onDelete = () => {
-    deleteSite(siteId);
+    deleteSite(siteRef);
     mutate(
       ['/api/sites', auth.user.token],
       async (data) => {
         return {
-          sites: data.sites.filter((site) => site.id !== siteId)
+          sites: data.sites.filter((site) => site.id !== siteRef.id)
         };
       },
       false

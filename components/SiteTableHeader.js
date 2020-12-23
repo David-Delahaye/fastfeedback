@@ -21,7 +21,7 @@ export default function SiteTableHeader({
   if (site) title = site.name;
   if (routeName) title = routeName;
 
-  if (isOwner) {
+  if (isOwner || site === undefined) {
     return (
       <Breadcrumb>
         <BreadcrumbItem>
