@@ -21,7 +21,7 @@ export default function RemoveButton({ feedbackId }) {
   const { user } = useAuth();
 
   const onDelete = () => {
-    deleteFeedback(feedbackId);
+    deleteFeedback(feedbackId, user);
 
     mutate(
       ['/api/feedback', user.token],
