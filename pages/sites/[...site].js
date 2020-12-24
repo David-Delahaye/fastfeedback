@@ -49,7 +49,7 @@ export default function SiteFeedback() {
       provider: user.provider,
       status: 'pending'
     };
-    createFeedback(newFeedback);
+    createFeedback(newFeedback, site);
     mutate(
       feedbackApi,
       async (data) => ({

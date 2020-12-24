@@ -21,6 +21,7 @@ export default function Account() {
   const details = useSWR(user ? ['/api/user', user.token] : null, fetcher);
   console.log(details?.data?.userDetails._fieldsProto.sitesCount.integerValue)
   const sitesCount = details?.data?.userDetails._fieldsProto.sitesCount.integerValue;
+  const feedbackCount = details?.data?.userDetails._fieldsProto.feedbackCount.integerValue;
   return (
     <DashboardShell>
       <>
@@ -69,7 +70,7 @@ export default function Account() {
                   <Box width="50%">
                     <Text fontWeight="bold">Feedback</Text>
                     <Text fontWeight="bold" fontSize="2xl">
-                      107/∞
+                      {feedbackCount}/∞
                     </Text>
                     <Text color="blackAlpha.500">{user?.stripeRole === 'premium' ? 'unlimited feedback' : '1000 feedback limit'}</Text>
                   </Box>
