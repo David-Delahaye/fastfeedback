@@ -30,7 +30,7 @@ export default function SiteFeedback() {
     : `/api/feedback/${siteId}`;
 
   const { data: siteData } = useSWR(`/api/sites/${siteId}`, fetcher);
-  const { data: feedbackData } = useSWR(feedbackApi, fetcher);
+  const { data: feedbackData } = useSWR(feedbackApi , fetcher);
 
   const site = siteData?.site;
   const feedback = feedbackData?.feedback;
