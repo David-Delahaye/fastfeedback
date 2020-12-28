@@ -10,7 +10,7 @@ import { useState } from 'react';
 import Feedback from '@/components/Feedback';
 import FeedbackLink from '@/components/FeedbackLink';
 
-const siteId = 'HjTjpIchuMaQZXwe7HOD';
+const siteId = 'SKQMvIdXO35ExRCvTsmE'
 
 export async function getStaticProps() {
   const { feedback } = await getAllFeedback(siteId);
@@ -24,7 +24,7 @@ export async function getStaticProps() {
 
 export default function Home({ initialFeedback }) {
   const auth = useAuth();
-  const [allFeedback, setAllFeedback] = useState(initialFeedback);
+  //const [allFeedback, setAllFeedback] = useState(initialFeedback);
   return (
     <>
       <Flex
@@ -35,7 +35,7 @@ export default function Home({ initialFeedback }) {
         justify="center"
         h="60vh">
         <Head>
-          <script
+          {/* <script
             dangerouslySetInnerHTML={{
               __html: `
           if (document.cookie && document.cookie.includes('fast-feedback-auth')) {
@@ -43,7 +43,7 @@ export default function Home({ initialFeedback }) {
           }
         `
             }}
-          />
+          /> */}
         </Head>
 
         <Logo boxSize="64px" />
@@ -97,11 +97,11 @@ export default function Home({ initialFeedback }) {
         )}
       </Flex>
       <Box p={8} overflow="hidden">
-        <iframe
-          src="https://fastfeedback-blush.vercel.app/embed/Rs1vXIdrAwMjcr7BIzYS"
-          width="100%"
-          height="2000px"
-        />
+      <iframe
+        src="https://fastfeedback-blush.vercel.app/embed/SKQMvIdXO35ExRCvTsmE"
+        width="100%"
+        height="2000px"
+      />
       </Box>
     </>
   );
