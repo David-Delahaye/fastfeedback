@@ -6,7 +6,8 @@ import {
   FormLabel,
   Input,
   Button,
-  Textarea
+  Textarea,
+  Flex
 } from '@chakra-ui/react';
 
 import { useAuth } from '@/lib/auth';
@@ -61,8 +62,8 @@ export default function SiteFeedback() {
   };
 
   return (
-    <DashboardShell>
-      <SiteTableHeader site={site} routeName={route} isOwner={isOwner} />
+    <Flex width="full" maxWidth={1200} margin="8px auto" direction="column" p={8}>
+      {site && <SiteTableHeader site={site} routeName={route} isOwner={isOwner} />}
       <Box display="flex" flexDirection="column" width="full" margin="0 auto">
         <Box as="form" onSubmit={onSubmit} mb={4}>
           <FormControl display="flex" flexDir="column">
@@ -99,7 +100,7 @@ export default function SiteFeedback() {
             />
           ))}
       </Box>
-    </DashboardShell>
+    </Flex>
   );
 }
 
