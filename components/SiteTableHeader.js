@@ -21,6 +21,23 @@ export default function SiteTableHeader({
   if (site) title = site.name;
   if (routeName) title = routeName;
 
+  if (!site) {
+    return (
+      <Breadcrumb>
+        <BreadcrumbItem>
+          <NextLink href="/sites">
+            <BreadcrumbLink>Sites</BreadcrumbLink>
+          </NextLink>
+        </BreadcrumbItem>
+
+        <Flex justify="space-between">
+          <Heading mb={8}>My Sites</Heading>
+          <div>{isPaidAccount && <AddSiteModal>+ Add Site</AddSiteModal>}</div>
+        </Flex>
+      </Breadcrumb>
+    );
+  }
+
   if (isOwner) {
     return (
       <Breadcrumb>
@@ -44,14 +61,16 @@ export default function SiteTableHeader({
         <Flex justify="space-between">
           <Heading mb={8}>{title}</Heading>
           <div>
-          {isPaidAccount && <AddSiteModal>+ Add Site</AddSiteModal>}
-          <CodeSiteModal mr={2} site={site} route={routeName}><EditIcon mr={2}/> View Code</CodeSiteModal>
-          {site?.name && (
-            <EditSiteModal site={site}>
-              <SettingsIcon mr={2} />
-              Edit Site
-            </EditSiteModal>
-          )}
+            {isPaidAccount && <AddSiteModal>+ Add Site</AddSiteModal>}
+            <CodeSiteModal mr={2} site={site} route={routeName}>
+              <EditIcon mr={2} /> View Code
+            </CodeSiteModal>
+            {site?.name && (
+              <EditSiteModal site={site}>
+                <SettingsIcon mr={2} />
+                Edit Site
+              </EditSiteModal>
+            )}
           </div>
         </Flex>
       </Breadcrumb>

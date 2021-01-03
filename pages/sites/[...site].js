@@ -31,7 +31,7 @@ export default function SiteFeedback() {
     : `/api/feedback/${siteId}`;
 
   const { data: siteData } = useSWR(`/api/sites/${siteId}`, fetcher);
-  const { data: feedbackData } = useSWR(feedbackApi , fetcher);
+  const { data: feedbackData } = useSWR(feedbackApi, fetcher);
 
   const site = siteData?.site;
   const feedback = feedbackData?.feedback;
@@ -61,9 +61,62 @@ export default function SiteFeedback() {
     e.target.comment.value = '';
   };
 
+  if (isOwner) {
+    return (
+      <DashboardShell>
+        {site && (
+          <SiteTableHeader site={site} routeName={route} isOwner={isOwner} />
+        )}
+        <Box display="flex" flexDirection="column" width="full" margin="0 auto">
+          <Box as="form" onSubmit={onSubmit} mb={4}>
+            <FormControl display="flex" flexDir="column">
+              <Textarea
+                ref={inputEl}
+                id="comment"
+                background="white"
+                maxW={600}
+                height={100}
+                placeholder="Leave a comment..."
+              />
+              <Button
+                type="submit"
+                fontWeight="medium"
+                mt={2}
+                maxWidth="fit-content"
+                variant="outline"
+                backgroundColor="gray.900"
+                color="white"
+                size="md"
+                _hover={{ bg: 'gray.800' }}
+                _active={{ bg: 'gray.800', transform: 'scale(0.95)' }}>
+                Add Comment
+              </Button>
+            </FormControl>
+          </Box>
+
+          {feedback &&
+            feedback.map((feedback) => (
+              <Feedback
+                key={feedback.id}
+                {...feedback}
+                settings={site?.settings}
+              />
+            ))}
+        </Box>
+      </DashboardShell>
+    );
+  }
+
   return (
-    <Flex width="full" maxWidth={1200} margin="8px auto" direction="column" p={8}>
-      {site && <SiteTableHeader site={site} routeName={route} isOwner={isOwner} />}
+    <Flex
+      width="full"
+      maxWidth={1200}
+      margin="8px auto"
+      direction="column"
+      p={8}>
+      {site && (
+        <SiteTableHeader site={site} routeName={route} isOwner={isOwner} />
+      )}
       <Box display="flex" flexDirection="column" width="full" margin="0 auto">
         <Box as="form" onSubmit={onSubmit} mb={4}>
           <FormControl display="flex" flexDir="column">
