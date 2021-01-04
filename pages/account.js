@@ -19,9 +19,11 @@ import {
 export default function Account() {
   const { user, signout } = useAuth();
   const details = useSWR(user ? ['/api/user', user.token] : null, fetcher);
-  console.log(details?.data?.userDetails._fieldsProto.sitesCount.integerValue)
-  const sitesCount = details?.data?.userDetails._fieldsProto.sitesCount.integerValue;
-  const feedbackCount = details?.data?.userDetails._fieldsProto.feedbackCount.integerValue;
+  const sitesCount =
+    details?.data?.userDetails?._fieldsProto?.sitesCount?.integerValue || 'N/A';
+  const feedbackCount =
+    details?.data?.userDetails?._fieldsProto?.feedbackCount?.integerValue ||
+    'N/A';
   return (
     <DashboardShell>
       <>
@@ -72,20 +74,28 @@ export default function Account() {
                     <Text fontWeight="bold" fontSize="2xl">
                       {feedbackCount}/∞
                     </Text>
-                    <Text color="blackAlpha.500">{user?.stripeRole === 'premium' ? 'unlimited feedback' : '1000 feedback limit'}</Text>
+                    <Text color="blackAlpha.500">
+                      {user?.stripeRole === 'premium'
+                        ? 'unlimited feedback'
+                        : '1000 feedback limit'}
+                    </Text>
                   </Box>
                   <Box width="50%">
                     <Text fontWeight="bold">Sites</Text>
                     <Text fontWeight="bold" fontSize="2xl">
                       {sitesCount}/∞
                     </Text>
-                    <Text color="blackAlpha.500">{user?.stripeRole === 'premium' ? 'unlimited sites' : '1 site limit'}</Text>
+                    <Text color="blackAlpha.500">
+                      {user?.stripeRole === 'premium'
+                        ? 'unlimited sites'
+                        : '1 site limit'}
+                    </Text>
                   </Box>
                 </Flex>
                 <Text mb={5}>
-                Fast Feedback uses Stripe to update, change, or cancel your
-            subscription. You can also update card information and billing
-            addresses through the secure portal.
+                  Fast Feedback uses Stripe to update, change, or cancel your
+                  subscription. You can also update card information and billing
+                  addresses through the secure portal.
                 </Text>
                 <Box ml="auto" mt="auto">
                   <Button
