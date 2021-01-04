@@ -18,9 +18,11 @@ import DashboardShell from '@/components/DashboardShell';
 import SiteTableHeader from '@/components/SiteTableHeader';
 import useSWR, { mutate } from 'swr';
 import fetcher from '@/utils/fetcher';
+import { Github, Google } from '@/styles/icons';
 
 export default function SiteFeedback() {
-  const { user } = useAuth();
+  const auth = useAuth();
+  const user = auth?.user;
   const inputEl = useRef(null);
   const router = useRouter();
   const siteAndRoute = router.query?.site;
@@ -61,6 +63,56 @@ export default function SiteFeedback() {
     e.target.comment.value = '';
   };
 
+  const LoginOrLeaveFeedback = () =>
+    user ? (
+      <Button
+        type="submit"
+        fontWeight="medium"
+        mt={2}
+        maxWidth="fit-content"
+        variant="outline"
+        backgroundColor="gray.900"
+        color="white"
+        size="md"
+        _hover={{ bg: 'gray.800' }}
+        _active={{ bg: 'gray.800', transform: 'scale(0.95)' }}>
+        Add Comment
+      </Button>
+    ) : (
+      <>
+        <Button
+          onClick={(e) => {
+            auth.signinWithGithub();
+          }}
+          mt={8}
+          variant="outline"
+          backgroundColor="gray.900"
+          maxWidth="fit-content"
+          color="white"
+          size="md"
+          _hover={{ bg: 'gray.800' }}
+          _active={{ bg: 'gray.800', transform: 'scale(0.95)' }}>
+          <Github boxSize="24px" mr={2} />
+          Sign In with Github
+        </Button>
+        <Button
+          onClick={(e) => {
+            auth.signinWithGoogle();
+          }}
+          mt={2}
+          variant="outline"
+          backgroundColor="white"
+          color="gray.900"
+          size="md"
+          maxWidth="fit-content"
+          _hover={{ bg: 'gray.200' }}
+          _active={{ bg: 'gray.200', transform: 'scale(0.95)' }}>
+          <Google boxSize="24px" mr={2} />
+          Sign In with Google
+        </Button>
+      </>
+    );
+
   if (isOwner) {
     return (
       <DashboardShell>
@@ -78,19 +130,7 @@ export default function SiteFeedback() {
                 height={100}
                 placeholder="Leave a comment..."
               />
-              <Button
-                type="submit"
-                fontWeight="medium"
-                mt={2}
-                maxWidth="fit-content"
-                variant="outline"
-                backgroundColor="gray.900"
-                color="white"
-                size="md"
-                _hover={{ bg: 'gray.800' }}
-                _active={{ bg: 'gray.800', transform: 'scale(0.95)' }}>
-                Add Comment
-              </Button>
+              <LoginOrLeaveFeedback />
             </FormControl>
           </Box>
 
@@ -128,19 +168,7 @@ export default function SiteFeedback() {
               height={100}
               placeholder="Leave a comment..."
             />
-            <Button
-              type="submit"
-              fontWeight="medium"
-              mt={2}
-              maxWidth="fit-content"
-              variant="outline"
-              backgroundColor="gray.900"
-              color="white"
-              size="md"
-              _hover={{ bg: 'gray.800' }}
-              _active={{ bg: 'gray.800', transform: 'scale(0.95)' }}>
-              Add Comment
-            </Button>
+            <LoginOrLeaveFeedback />
           </FormControl>
         </Box>
 
