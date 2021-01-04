@@ -87,6 +87,7 @@ export default function SiteFeedback() {
           mt={8}
           variant="outline"
           backgroundColor="gray.900"
+          maxWidth="fit-content"
           color="white"
           size="md"
           _hover={{ bg: 'gray.800' }}
@@ -103,6 +104,7 @@ export default function SiteFeedback() {
           backgroundColor="white"
           color="gray.900"
           size="md"
+          maxWidth="fit-content"
           _hover={{ bg: 'gray.200' }}
           _active={{ bg: 'gray.200', transform: 'scale(0.95)' }}>
           <Google boxSize="24px" mr={2} />
